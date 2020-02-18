@@ -18,3 +18,17 @@ void ATankPlayerController::BeginPlay() {
 		UE_LOG(LogTemp, Error, TEXT("ATank Pawn not found!"));
 	}
 }
+
+void ATankPlayerController::Tick(float DeltaTime){
+	Super::Tick(DeltaTime);
+
+	AimTowardsCrosshair();
+}
+
+void ATankPlayerController::AimTowardsCrosshair() {
+	if (!GetControlledTank()) {
+		UE_LOG(LogTemp, Error, TEXT("AimTowarsCrosshair Failed, ATank Pawn not found!"));
+		return;
+	}
+}
+
