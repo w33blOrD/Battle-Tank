@@ -11,11 +11,17 @@ ATank::ATank()
 
 }
 
+void ATank::AimAt(FVector TargetLocation)
+{
+	auto CallerTankName = GetName();
+	UE_LOG(LogTemp, Warning, TEXT("%s is targetting at %s"), *CallerTankName, *(TargetLocation.ToString()));
+}
+
 // Called when the game starts or when spawned
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 }
 
 // Called every frame
