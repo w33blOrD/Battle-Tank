@@ -19,6 +19,11 @@ void ATankPlayerController::BeginPlay() {
 	else {
 		UE_LOG(LogTemp, Error, TEXT("ATank Pawn not found!"));
 	}
+	/*
+	FVector Random = FVector(78134.922f, 62404.465f, 785.794f);
+	UE_LOG(LogTemp, Warning, TEXT("%s"), *Random.GetSafeNormal().ToString())
+	
+	*/
 }
 
 void ATankPlayerController::Tick(float DeltaTime) {
