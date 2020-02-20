@@ -6,6 +6,8 @@
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
 
+class UTankBarrel;
+
 UCLASS()
 class BATTLETANK_API ATank : public APawn
 {
@@ -18,7 +20,7 @@ public:
 	void AimAt(FVector TargetLocation);
 
 	UFUNCTION(BlueprintCallable, Category = Setup)
-	void SetBarrel(UStaticMeshComponent* Barrel);
+	void SetBarrel(UTankBarrel* Barrel);
 
 	UPROPERTY(EditAnywhere, Category = Firing)
 	float ProjectileLaunchSpeed = 100000.f;

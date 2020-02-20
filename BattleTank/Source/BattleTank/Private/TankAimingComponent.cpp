@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "Math/Vector.h"
 #include "Kismet/GameplayStatics.h"
+#include "TankBarrel.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/ActorComponent.h"
 #include "TankAimingComponent.h"
@@ -68,7 +69,7 @@ void UTankAimingComponent::TargetAt(FVector HitLocation, float ProjectileLaunchS
 	
 }
 
-void UTankAimingComponent::SetBarrel(UStaticMeshComponent* Barrel)
+void UTankAimingComponent::SetBarrel(UTankBarrel* Barrel)
 {
 	this->Barrel = Barrel;
 }
@@ -78,6 +79,7 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) {
 	auto CurrentRotation = Barrel->GetForwardVector().Rotation();
 	auto AimRotation = AimDirection.Rotation();
 	auto DeltaRotation = AimRotation - CurrentRotation;
-	UE_LOG(LogTemp,Warning,TEXT("Tank: %s, Delta: %s"),*(GetOwner()->GetName()), *(DeltaRotation.ToString()))
+	///UE_LOG(LogTemp,Warning,TEXT("Tank: %s, Delta: %s"),*(GetOwner()->GetName()), *(DeltaRotation.ToString()))
+	Barrel->ElevateBarrel(5.f);
 }
 
