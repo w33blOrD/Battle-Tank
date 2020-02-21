@@ -1,5 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
+#include"Tank.h"
 #include "Engine/World.h"
 #include "Camera/PlayerCameraManager.h"
 #include "GameFramework/PlayerController.h"
@@ -11,19 +11,14 @@ ATank* ATankPlayerController::GetControlledTank() const {
 
 void ATankPlayerController::BeginPlay() {
 	Super::BeginPlay();
-	UE_LOG(LogTemp, Warning, TEXT("Link Start"));
+	///UE_LOG(LogTemp, Warning, TEXT("Link Start"));
 	auto ControlledTank = GetControlledTank();
 	if (ControlledTank) {
-		UE_LOG(LogTemp, Warning, TEXT("Controlling: %s"), *(ControlledTank->GetName()));
+		///UE_LOG(LogTemp, Warning, TEXT("Controlling: %s"), *(ControlledTank->GetName()));
 	}
 	else {
 		UE_LOG(LogTemp, Error, TEXT("ATank Pawn not found!"));
 	}
-	/*
-	FVector Random = FVector(78134.922f, 62404.465f, 785.794f);
-	UE_LOG(LogTemp, Warning, TEXT("%s"), *Random.GetSafeNormal().ToString())
-	
-	*/
 }
 
 void ATankPlayerController::Tick(float DeltaTime) {

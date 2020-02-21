@@ -1,5 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "Math/Vector.h"
+#include "TankBarrel.h"
+#include "TankTurret.h"
 #include "Kismet/GameplayStatics.h"
 #include "TankBarrel.h"
 #include "Components/StaticMeshComponent.h"
@@ -62,9 +64,12 @@ void UTankAimingComponent::TargetAt(FVector HitLocation, float ProjectileLaunchS
 		float aim_z = OutLaunchVelocity.Z;
 		float length = sqrt(aim_x * aim_x + aim_y * aim_y + aim_z * aim_z);
 		FVector Manual_Direction = FVector(aim_x / length, aim_y / length, aim_z / length);
-		///UE_LOG(LogTemp, Warning, TEXT("%s Aiming Towards %s"), *(GetOwner()->GetName()), *(Manual_Direction.ToString()))
+		//UE_LOG(LogTemp, Warning, TEXT("%s, %s"), *(Manual_Direction.ToString()), *(OutLaunchVelocity.GetSafeNormal().ToString()))
 
 		MoveBarrelTowards(Manual_Direction);
+	}
+	else {
+		///UE_LOG(LogTemp,Warning,TEXT("%f: No Soloution Found"), GetWorld()->GetTimeSeconds())
 	}
 	
 }
@@ -74,12 +79,19 @@ void UTankAimingComponent::SetBarrel(UTankBarrel* Barrel)
 	this->Barrel = Barrel;
 }
 
+void UTankAimingComponent::SetTurret(UTankTurret* Turret)
+{
+	this->Turret = Turret;
+}
+
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) {
 	//Get Current and Next Rotation of Barrel
 	auto CurrentRotation = Barrel->GetForwardVector().Rotation();
 	auto AimRotation = AimDirection.Rotation();
 	auto DeltaRotation = AimRotation - CurrentRotation;
+	///UE_LOG(LogTemp,Warning, TEXT("%s"),*AimDirection.ToString())
 	///UE_LOG(LogTemp,Warning,TEXT("Tank: %s, Delta: %s"),*(GetOwner()->GetName()), *(DeltaRotation.ToString()))
-	Barrel->ElevateBarrel(5.f);
+	Barrel->ElevateBarrel(DeltaRotation.Pitch);
+	Turret->RotateTurret(DeltaRotation.Yaw);
 }
 

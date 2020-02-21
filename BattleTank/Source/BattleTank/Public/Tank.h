@@ -1,12 +1,14 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
-#include "TankAimingComponent.h"
+
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
 
 class UTankBarrel;
+class UTankAimingComponent;
+class UTankTurret;
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn
@@ -19,11 +21,10 @@ public:
 
 	void AimAt(FVector TargetLocation);
 
-	UFUNCTION(BlueprintCallable, Category = Setup)
-	void SetBarrel(UTankBarrel* Barrel);
+	
 
 	UPROPERTY(EditAnywhere, Category = Firing)
-	float ProjectileLaunchSpeed = 100000.f;
+	float ProjectileLaunchSpeed = 4000.f;
 
 protected:
 	UTankAimingComponent* AimingComponent = nullptr;
@@ -32,10 +33,15 @@ protected:
 	virtual void BeginPlay() override;
 
 private:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	UFUNCTION(BlueprintCallable, Category = Setup)
+	void SetBarrel(UTankBarrel* Barrel);
+
+	UFUNCTION(BlueprintCallable, Category = Setup)
+	void SetTurret(UTankTurret* Turret);
+
+	UFUNCTION(BlueprintCallable, Category = Action)
+	void FireProjectile();
 };
